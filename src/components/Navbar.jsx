@@ -1,7 +1,7 @@
 import { AppBar, Toolbar, Typography, Button } from '@mui/material'
 import authService from '../services/authService'
 import { useNavigate } from 'react-router-dom'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 const Navbar = () => {
 

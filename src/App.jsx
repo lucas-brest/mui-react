@@ -1,6 +1,4 @@
-import { useEffect } from "react"
-import authService from "./services/authService"
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import useValidateLogin from "./hooks/useValidateLogin"
 
 import LoginPage from "./pages/LoginPage"
@@ -9,6 +7,8 @@ import UserPage from "./pages/UserPage"
 import Navbar from "./components/Navbar"
 import { Container } from "@mui/material"
 
+
+
 function App() {
 
   useValidateLogin()
@@ -16,11 +16,14 @@ function App() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path="/" Component={HomePage}/>
-        <Route path="/login" Component={LoginPage}/>
-        <Route path="/user/:username" Component={UserPage}/>
-      </Routes>
+      <Container>
+
+        <Routes>
+          <Route path="/" Component={HomePage}/>
+          <Route path="/login" Component={LoginPage}/>
+          <Route path="/user/:username" Component={UserPage}/>
+        </Routes>
+      </Container>
     </>
   )
 }

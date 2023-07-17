@@ -1,6 +1,6 @@
 import jwtDecode from "jwt-decode";
+import apiUrl from  './../config.json'
 
-const apiUrl = 'https://jsonplaceholder.typicode.com/'
 const jwtKey = "token"
 
 export const login = async ({mail, password}) => {
