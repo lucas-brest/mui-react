@@ -1,21 +1,15 @@
 import { AppBar, Toolbar, Typography, Button } from '@mui/material'
 import authService from '../services/authService'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react';
 
 const Navbar = () => {
 
   const navigation = useNavigate();
 
-  useEffect(() => {
-
-  }, [])
-
   const handleLogOut = () => {
     authService.logout();
     navigation("/login")
   }
-
 
   return (
     <AppBar position="static">
