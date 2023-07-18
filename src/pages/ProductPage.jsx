@@ -32,16 +32,15 @@ const ProductPage = () => {
         justifyContent: "space-between",
         alignItems:"flex-start",
         backgroundColor: "white",
-        padding: 4,
-        
+        padding: 4,    
       }}>
         <Box>
-          <img src={product.image} alt={product.title} style={{maxWidth:'500px', maxHeight:'500px'}}/>
+          <img src={product.image} alt={product.title} style={{maxWidth:'450px', maxHeight:'450px'}}/>
         </Box>
         <Paper elevation={12} sx={{
           display: 'flex',
           flexDirection: 'column',
-          width:'500px',
+          width:'450px',
           padding: 2,
         }}>
           <Typography variant="h6" color="textSecondary" component="p">
@@ -59,7 +58,7 @@ const ProductPage = () => {
             <Typography variant="h6" paddingX={2} sx={{userSelect:'none'}}>{qty}</Typography>
             <Button variant="outlined" onClick={() => setQty(qty + 1)} disabled={qty > 9}>+</Button>
           </Stack>
-          <Button variant="contained" disabled={qty < 1}>
+          <Button variant="contained" disabled={qty < 1} onClick={handleAddToCart}>
             Add to Cart
           </Button>
         </Paper>
