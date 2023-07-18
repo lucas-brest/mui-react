@@ -12,9 +12,19 @@ const Navbar = () => {
   }
 
   return (
-    <AppBar position="static">
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+    <AppBar position="static" sx={{alignItems:'center'}}>
+      <Toolbar sx={{maxWidth:'1200px', width:'100%'}}>
+        <Typography 
+          variant="h6"
+          component="a" 
+          href="/" 
+          sx={{ 
+            flexGrow: 1,
+            textDecoration: 'none',
+            color: 'inherit',
+          }}
+        >
+          
           MUI Store
         </Typography>
         <Button color="inherit" onClick={handleLogOut}>Logout</Button>
