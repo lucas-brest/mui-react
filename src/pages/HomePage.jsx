@@ -1,36 +1,46 @@
 import { useEffect, useState } from "react"
 import productService from './../services/productService'
-import { MenuItem, Select, Stack, InputLabel, FormControl } from "@mui/material"
+import { MenuItem, Select, Stack, InputLabel, FormControl, Pagination } from "@mui/material"
 import { ProductList } from "../components"
 import _ from "lodash"
 
-const selectProducts = ({products, orderCondition, categoryCondition}) => {
-  if(!products) return
+const selectProducts = ({products, orderCondition, categoryCondition, pageCondition, pageSize}) => {
+  if(!products) return []
 
   let selected = [...products]
   
+  let length = selected.length
   // Filtrado
-  if(categoryCondition)
+  if(categoryCondition) {
     selected = selected.filter(p => !p.category.localeCompare(categoryCondition))
+    length = selected.length
+  }
 
   // Ordenado
-  if(orderCondition == 'rating') orderCondition = 'rating.rate'
-  const sorted = _.orderBy(selected, [orderCondition])
+  if(orderCondition == 'rating') 
+    orderCondition = 'rating.rate'
+  selected = _.orderBy(selected, [orderCondition])
 
   // Paginado
+  selected = _(selected)
+    .slice((pageCondition - 1)*pageSize)
+    .take(pageSize)
+    .value()
 
-
-
-  return sorted
+  return {selected, length}
 }
+
+const pageSize = 4
 
 const HomePage = () => {
 
   const [products, setProducts] = useState()
   const [orderCondition, setOrderCondition] = useState("")
+
   const [categoryCondition, setCategoryCondition] = useState("")
-  
   const [categories, setCategories] = useState()
+  
+  const [pageCondition, setPageCondition] = useState(1)
 
   useEffect(() => {
     productService.getProducts()
@@ -42,24 +52,32 @@ const HomePage = () => {
       .then(data => setCategories(data))
   }, [])
 
-  const handleChangeOrderCondition = (e) => setOrderCondition(e.target.value)
+  const handleChangeOrder = (e) => {
+    setOrderCondition(e.target.value)
+  }
+  
+  const handleChangeCategory = (e) => {
+    setPageCondition(1)
+    setCategoryCondition(e.target.value)
+  }
 
-  const handleCategoryCondition = (e) => setCategoryCondition(e.target.value)
+  const handleChangePage = (e, value) => setPageCondition(value)
+  
 
-  const selectedProducts = selectProducts({products, orderCondition, categoryCondition})
+  const {selected, length} = selectProducts({products, orderCondition, categoryCondition, pageCondition, pageSize})
 
   return (
-    <div style={{backgroundColor: '#cecece'}}>
+    <div>
       <Stack 
         padding='1rem 1.6rem'
-        spacing={{xs: 1, sm: 2}} 
+        spacing={{xs: 1, sm: 1}} 
         direction="row" 
         useFlexGap 
         flexWrap="wrap"
         justifyContent="center"
       >
         <Stack 
-          sx={{width: '100%'}}
+          sx={{width: '100%', paddingBlock:1}}
           direction="row"
           justifyContent="flex-end"
           spacing={2}
@@ -69,7 +87,7 @@ const HomePage = () => {
 
             <Select 
               value={orderCondition}
-              onChange={handleChangeOrderCondition}
+              onChange={handleChangeOrder}
               labelId="order-select-label"
               >
               
@@ -82,7 +100,7 @@ const HomePage = () => {
             <InputLabel id="category-select-label">Categoría</InputLabel>
             <Select 
               value={categoryCondition}
-              onChange={handleCategoryCondition}
+              onChange={handleChangeCategory}
               labelId="category-select-label"
               autoWidth
               >
@@ -95,7 +113,14 @@ const HomePage = () => {
             </Select>
           </FormControl>
         </Stack>
-        <ProductList products={selectedProducts}/>
+        <ProductList products={selected}/>
+        <Stack sx={{
+          width:'100%',
+          alignItems: 'center',
+          paddingTop:2
+        }}>
+          <Pagination count={Math.ceil(length / pageSize)} shape="rounded" page={pageCondition} onChange={handleChangePage}/>
+        </Stack>
       </Stack>      
     </div>
   )

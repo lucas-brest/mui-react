@@ -9,7 +9,7 @@ function App() {
   useValidateLogin()
 
   return (
-    <>
+    <div style={{backgroundColor: 'rgb(222 222 222)', minHeight:'100vh'}}>
       <Navbar />
       <Container>
         <Routes>
@@ -20,7 +20,7 @@ function App() {
           <Route path="/user/:username" Component={UserPage}/>
         </Routes>
       </Container>
-    </>
+    </div>
   )
 }
 
