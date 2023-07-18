@@ -67,62 +67,60 @@ const HomePage = () => {
   const {selected, length} = selectProducts({products, orderCondition, categoryCondition, pageCondition, pageSize})
 
   return (
-    <div>
+    <Stack 
+      padding='1rem 1.6rem'
+      spacing={{sm: 1}} 
+      direction="row" 
+      useFlexGap 
+      flexWrap="wrap"
+      justifyContent="center"
+    >
       <Stack 
-        padding='1rem 1.6rem'
-        spacing={{sm: 1}} 
-        direction="row" 
-        useFlexGap 
-        flexWrap="wrap"
-        justifyContent="center"
+        sx={{width: '100%', paddingBlock:1}}
+        direction="row"
+        justifyContent="flex-end"
+        spacing={2}
       >
-        <Stack 
-          sx={{width: '100%', paddingBlock:1}}
-          direction="row"
-          justifyContent="flex-end"
-          spacing={2}
-        >
-          <FormControl sx={{minWidth:110}}>
-            <InputLabel id="order-select-label">Ordenar</InputLabel>
+        <FormControl sx={{minWidth:110}}>
+          <InputLabel id="order-select-label">Ordenar</InputLabel>
 
-            <Select 
-              value={orderCondition}
-              onChange={handleChangeOrder}
-              labelId="order-select-label"
-              >
-              
-              <MenuItem value='title'>Nombre</MenuItem>
-              <MenuItem value='price'>Precio</MenuItem>
-              <MenuItem value='rating'>Valoración</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl sx={{minWidth:120}}>
-            <InputLabel id="category-select-label">Categoría</InputLabel>
-            <Select 
-              value={categoryCondition}
-              onChange={handleChangeCategory}
-              labelId="category-select-label"
-              autoWidth
-              >
-              <MenuItem value="">Todas</MenuItem>
-            {
-              categories && categories.map(c => (
-                <MenuItem value={c} key={c}>{_.startCase(_.toLower(c))}</MenuItem>
-                ))
-              } 
-            </Select>
-          </FormControl>
-        </Stack>
-        <ProductList products={selected}/>
-        <Stack sx={{
-          width:'100%',
-          alignItems: 'center',
-          paddingTop:2
-        }}>
-          <Pagination count={Math.ceil(length / pageSize)} shape="rounded" page={pageCondition} onChange={handleChangePage}/>
-        </Stack>
-      </Stack>      
-    </div>
+          <Select 
+            value={orderCondition}
+            onChange={handleChangeOrder}
+            labelId="order-select-label"
+            >
+            
+            <MenuItem value='title'>Nombre</MenuItem>
+            <MenuItem value='price'>Precio</MenuItem>
+            <MenuItem value='rating'>Valoración</MenuItem>
+          </Select>
+        </FormControl>
+        <FormControl sx={{minWidth:120}}>
+          <InputLabel id="category-select-label">Categoría</InputLabel>
+          <Select 
+            value={categoryCondition}
+            onChange={handleChangeCategory}
+            labelId="category-select-label"
+            autoWidth
+            >
+            <MenuItem value="">Todas</MenuItem>
+          {
+            categories && categories.map(c => (
+              <MenuItem value={c} key={c}>{_.startCase(_.toLower(c))}</MenuItem>
+              ))
+            } 
+          </Select>
+        </FormControl>
+      </Stack>
+      <ProductList products={selected}/>
+      <Stack sx={{
+        width:'100%',
+        alignItems: 'center',
+        paddingTop:2
+      }}>
+        <Pagination count={Math.ceil(length / pageSize)} shape="rounded" page={pageCondition} onChange={handleChangePage}/>
+      </Stack>
+    </Stack>      
   )
 }
 

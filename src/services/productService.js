@@ -11,6 +11,14 @@ export const getProducts = () => {
   }
 }
 
+export const getProductById = (id) => {
+  try {
+    return httpService.get(apiEndpoint + '/' + id)
+  } catch (ex) {
+    console.log("Error: " ,ex);
+  }
+}
+
 export const getCategories = () => {
   try {
     return httpService.get(apiEndpoint + "/categories")
@@ -19,4 +27,4 @@ export const getCategories = () => {
   }
 }
 
-export default { getProducts, getCategories }
+export default { getProducts, getCategories, getProductById }
