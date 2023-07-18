@@ -15,7 +15,7 @@ const Navbar = () => {
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Red Social
+          MUI Store
         </Typography>
         <Button color="inherit" onClick={handleLogOut}>Logout</Button>
       </Toolbar>
