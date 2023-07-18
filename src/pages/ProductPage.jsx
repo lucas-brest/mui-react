@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import productService from "../services/productService"
 import { RatingStars } from "../components"
-
+import { Remove, Add } from "@mui/icons-material"
 
 const ProductPage = () => {
 
@@ -54,9 +54,9 @@ const ProductPage = () => {
             $ {product.price}
           </Typography>
           <Stack flexDirection='row' alignItems='center' marginY={2}>
-            <Button variant="outlined" onClick={() => setQty(qty - 1)} disabled={qty < 1}>-</Button>
+            <Button variant="outlined" onClick={() => setQty(qty - 1)} disabled={qty < 1}><Remove/></Button>
             <Typography variant="h6" paddingX={2} sx={{userSelect:'none'}}>{qty}</Typography>
-            <Button variant="outlined" onClick={() => setQty(qty + 1)} disabled={qty > 9}>+</Button>
+            <Button variant="outlined" onClick={() => setQty(qty + 1)} disabled={qty > 9}><Add/></Button>
           </Stack>
           <Button variant="contained" disabled={qty < 1} onClick={handleAddToCart}>
             Add to Cart

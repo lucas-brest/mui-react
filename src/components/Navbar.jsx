@@ -2,6 +2,7 @@ import { AppBar, Toolbar, Typography, Button, Stack } from '@mui/material'
 import authService from '../services/authService'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react';
+import { ShoppingCart } from '@mui/icons-material';
 
 const Navbar = () => {
 
@@ -32,7 +33,9 @@ const Navbar = () => {
           MUI Store
         </Typography>
         <Stack flexDirection='row'>
-          <Button color="inherit" onClick={() => navigation("/cart")}>Cart</Button>
+          <Button color="inherit" onClick={() => navigation("/cart")}>
+            <ShoppingCart/>
+          </Button>
           <Button color="inherit" onClick={handleLogOut}>Logout</Button>
         </Stack>
       </Toolbar>
