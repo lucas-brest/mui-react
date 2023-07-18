@@ -70,7 +70,7 @@ const HomePage = () => {
     <div>
       <Stack 
         padding='1rem 1.6rem'
-        spacing={{xs: 1, sm: 1}} 
+        spacing={{sm: 1}} 
         direction="row" 
         useFlexGap 
         flexWrap="wrap"
