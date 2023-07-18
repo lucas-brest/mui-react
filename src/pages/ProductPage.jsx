@@ -38,7 +38,9 @@ const ProductPage = () => {
         <Box>
           <img src={product.image} alt={product.title} style={{maxWidth:'500px', maxHeight:'500px'}}/>
         </Box>
-        <Paper elevation={12} flexDirection='column' sx={{
+        <Paper elevation={12} sx={{
+          display: 'flex',
+          flexDirection: 'column',
           width:'500px',
           padding: 2,
         }}>
