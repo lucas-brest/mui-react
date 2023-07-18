@@ -3,6 +3,7 @@ import productService from './../services/productService'
 import { MenuItem, Select, Stack, InputLabel, FormControl, Pagination } from "@mui/material"
 import { ProductList } from "../components"
 import _ from "lodash"
+import useValidateLogin from './../hooks/useValidateLogin'
 
 const selectProducts = ({products, orderCondition, categoryCondition, pageCondition, pageSize}) => {
   if(!products) return []
@@ -51,6 +52,8 @@ const HomePage = () => {
       .then(res => res.data)
       .then(data => setCategories(data))
   }, [])
+
+  useValidateLogin() // Valida las páginas que requieran autenticacion
 
   const handleChangeOrder = (e) => {
     setOrderCondition(e.target.value)

@@ -4,9 +4,12 @@ import { useParams } from "react-router-dom"
 import productService from "../services/productService"
 import { RatingStars } from "../components"
 import { Remove, Add } from "@mui/icons-material"
+import { useDispatch } from "react-redux"
+import { addToCart } from './../store/cartSlice'
 
 const ProductPage = () => {
 
+  const dispatch = useDispatch();
   const { id } = useParams()
   const [product, setProduct] = useState()
   const [qty, setQty] = useState(1)
@@ -18,7 +21,13 @@ const ProductPage = () => {
   }, [])
 
   const handleAddToCart = () => {
-    console.log(`Añadir ${qty} unidades de ${product.title}`);
+    const cartProduct = {
+      ...product,
+      quantity: qty,
+      totalPrice: qty*product.price
+    }
+
+    dispatch(addToCart(cartProduct))
   }
 
   return (
