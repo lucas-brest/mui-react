@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { getCartTotalPrice } from './../store/cartSlice'
 import { useEffect } from 'react';
+import useValidateLogin from './../hooks/useValidateLogin'
 
 const CartPage = () => {
 
@@ -11,6 +12,8 @@ const CartPage = () => {
       dispatch(getCartTotalPrice());
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartProducts]); 
+
+  useValidateLogin()
 
   console.log(cartProducts)
 

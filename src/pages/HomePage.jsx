@@ -1,35 +1,9 @@
 import { useEffect, useState } from "react"
 import productService from './../services/productService'
 import { MenuItem, Select, Stack, InputLabel, FormControl, Pagination } from "@mui/material"
-import { ProductList } from "../components"
+import { ProductList, SelectOrder, SelectCategory } from "../components"
 import _ from "lodash"
-import useValidateLogin from './../hooks/useValidateLogin'
-
-const selectProducts = ({products, orderCondition, categoryCondition, pageCondition, pageSize}) => {
-  if(!products) return []
-
-  let selected = [...products]
-  
-  let length = selected.length
-  // Filtrado
-  if(categoryCondition) {
-    selected = selected.filter(p => !p.category.localeCompare(categoryCondition))
-    length = selected.length
-  }
-
-  // Ordenado
-  if(orderCondition == 'rating') 
-    orderCondition = 'rating.rate'
-  selected = _.orderBy(selected, [orderCondition])
-
-  // Paginado
-  selected = _(selected)
-    .slice((pageCondition - 1)*pageSize)
-    .take(pageSize)
-    .value()
-
-  return {selected, length}
-}
+import selectProducts from "../utils/selectProducts"
 
 const pageSize = 4
 
@@ -53,7 +27,6 @@ const HomePage = () => {
       .then(data => setCategories(data))
   }, [])
 
-  useValidateLogin() // Valida las páginas que requieran autenticacion
 
   const handleChangeOrder = (e) => {
     setOrderCondition(e.target.value)
@@ -84,36 +57,8 @@ const HomePage = () => {
         justifyContent="flex-end"
         spacing={2}
       >
-        <FormControl sx={{minWidth:110}}>
-          <InputLabel id="order-select-label">Ordenar</InputLabel>
-
-          <Select 
-            value={orderCondition}
-            onChange={handleChangeOrder}
-            labelId="order-select-label"
-            >
-            
-            <MenuItem value='title'>Nombre</MenuItem>
-            <MenuItem value='price'>Precio</MenuItem>
-            <MenuItem value='rating'>Valoración</MenuItem>
-          </Select>
-        </FormControl>
-        <FormControl sx={{minWidth:120}}>
-          <InputLabel id="category-select-label">Categoría</InputLabel>
-          <Select 
-            value={categoryCondition}
-            onChange={handleChangeCategory}
-            labelId="category-select-label"
-            autoWidth
-            >
-            <MenuItem value="">Todas</MenuItem>
-          {
-            categories && categories.map(c => (
-              <MenuItem value={c} key={c}>{_.startCase(_.toLower(c))}</MenuItem>
-              ))
-            } 
-          </Select>
-        </FormControl>
+        <SelectOrder orderCondition={orderCondition} handleChangeOrder={handleChangeOrder}/>
+        <SelectCategory categoryCondition={categoryCondition} handleChangeCategory={handleChangeCategory} categories={categories}/>
       </Stack>
       <ProductList products={selected}/>
       <Stack sx={{
