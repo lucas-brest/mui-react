@@ -10,6 +10,7 @@ const ProductCard = ({ product, onClick }) => {
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
+          maxWidth: '260px',
           height: '100%',
         }}>
         <CardContent sx={{height: '300px'}}>

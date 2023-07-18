@@ -11,4 +11,12 @@ export const getProducts = () => {
   }
 }
 
-export default { getProducts }
+export const getCategories = () => {
+  try {
+    return httpService.get(apiEndpoint + "/categories")
+  } catch (ex) {
+    console.log("Error: " ,ex);
+  }
+}
+
+export default { getProducts, getCategories }
