@@ -5,7 +5,8 @@ const jwtKey = "token"
 
 export const login = async ({mail, password}) => {
   // Validacion
-  sessionStorage.setItem(jwtKey, "JWT con user info")
+  const placeholder = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiSm9obiBEb2UiLCJtYWlsIjoiY29ycmVvQGdtYWlsLmNvbS5hciJ9.yAqWWOr0UmB9r4Ue5xpv7l677yDa_4w44uSXsptWJUg'
+  sessionStorage.setItem(jwtKey, placeholder)
 }
 
 export const logout = async () => {
@@ -15,8 +16,7 @@ export const logout = async () => {
 export const getCurrentUser = () => {
   try {
     const jwt = sessionStorage.getItem(jwtKey);
-    return jwt
-    // return jwtDecode(jwt);
+    return jwtDecode(jwt)
   } catch (ex) {
     return null;
   }

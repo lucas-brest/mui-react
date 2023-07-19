@@ -25,7 +25,7 @@ function App() {
           <Route path='/product/:id' Component={ProductPage}/>
           <Route path='/cart' Component={CartPage}/>
           <Route path="/login" Component={LoginPage}/>
-          <Route path="/user/:username" Component={UserPage}/>
+          <Route path="/user" Component={UserPage}/>
         </Routes>
       </Container>
     </div>
