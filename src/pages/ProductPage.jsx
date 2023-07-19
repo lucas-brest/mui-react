@@ -41,7 +41,7 @@ const ProductPage = () => {
         padding: 4,    
       }}>
         <Stack flexDirection={{xs:'column', md:'row'}} justifyContent='space-between' width='100%'>
-          <Paper elevation={12} sx={{
+          <Paper elevation={2} sx={{
             display: 'flex',
             flexDirection: 'column',
             width:{xs:'100%', md:'45%'},

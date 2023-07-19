@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import authService from "../services/authService"
-import { Container, Box, Typography, TextField, Button } from "@mui/material"
+import { Container, Paper, Box, Typography, TextField, Button } from "@mui/material"
 import { useDispatch } from "react-redux"
 import { setUser } from "../store/userSlice"
 
@@ -33,54 +33,55 @@ const LoginPage = () => {
   }
 
   return (
-    <Container component="main">
-        <Box
-          sx={{
-            marginTop: 16,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
+    <Container>
+      <Paper
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          marginTop:8,
+          padding: '3rem 2rem 4rem 2rem',
+        }}
         >
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" 
-            onSubmit={handleSubmit}
-            noValidate
-            sx={{ mt: 2 }}
+        <Typography component="h1" variant="h5">
+          Sign in
+        </Typography>
+        <Box component="form" 
+          onSubmit={handleSubmit}
+          noValidate
+          sx={{ mt: 2 }}
           >
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Email Address"
-              autoComplete="email"
-              autoFocus
-              value={mail}
-              onChange={(e) => setMail(e.target.value)}
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            label="Email Address"
+            autoComplete="email"
+            autoFocus
+            value={mail}
+            onChange={(e) => setMail(e.target.value)}
             />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              label="Password"
-              type="password"
-              autoComplete="current-password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+          <TextField
+            margin="normal"
+            required
+            fullWidth
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3 }}
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            sx={{ mt: 3 }}
             >
-              Sign In
-            </Button>
-          </Box>
+            Sign In
+          </Button>
         </Box>
-      </Container>
+      </Paper>
+    </Container>
   )
 }
 
