@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import authService from "../services/authService"
 import { Container, Box, Typography, TextField, Button } from "@mui/material"
+import { useDispatch } from "react-redux"
+import { setUser } from "../store/userSlice"
 
 const LoginPage = () => {
 
@@ -9,6 +11,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("")
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const user = authService.getCurrentUser()
@@ -18,9 +21,11 @@ const LoginPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     try {
-
       // Validar form
       authService.login({mail, password})
+
+      const user = authService.getCurrentUser()
+      dispatch(setUser(user))
       navigate("/")
     } catch (e) {
       console.log(e);

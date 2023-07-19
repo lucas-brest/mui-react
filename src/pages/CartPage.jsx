@@ -7,13 +7,13 @@ const CartPage = () => {
 
   const dispatch = useDispatch();
   const {data: cartProducts, totalAmount} = useSelector(state => state.cart);
+  
+  useValidateLogin()
 
   useEffect(() => {
-      dispatch(getCartTotalPrice());
       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cartProducts]); 
 
-  useValidateLogin()
 
   console.log(cartProducts)
 

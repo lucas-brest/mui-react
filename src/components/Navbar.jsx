@@ -4,17 +4,18 @@ import authService from '../services/authService'
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react';
 import { ShoppingCart } from '@mui/icons-material';
+import { useDispatch, useSelector } from 'react-redux'
+import { removeUser } from './../store/userSlice'
 
 const Navbar = () => {
 
+  const { isConnected } = useSelector(state => state.user);
   const navigation = useNavigate();
-
-  useEffect(() => {
-    // Obtener el user de redux 
-  }, [])  // Agregar ese user como dependencia
+  const dispatch = useDispatch()
 
   const handleLogOut = () => {
     authService.logout();
+    dispatch(removeUser())
     navigation("/login")
   }
 
@@ -27,10 +28,19 @@ const Navbar = () => {
           </Typography>
         </Link>
         <Stack flexDirection='row'>
-          <Button color="inherit" onClick={() => navigation("/cart")}>
-            <ShoppingCart/>
-          </Button>
-          <Button color="inherit" onClick={handleLogOut}>Logout</Button>
+        {
+          isConnected ? 
+          <>
+            <Button color="inherit" onClick={() => navigation("/cart")}>
+              <ShoppingCart/>
+            </Button>
+            <Button color="inherit" onClick={handleLogOut}>Logout</Button>
+          </>
+            :
+            <>
+            <Button color="inherit" onClick={() => navigation("/login")}>Login</Button>
+            </>
+          }
         </Stack>
       </Toolbar>
     </AppBar>
