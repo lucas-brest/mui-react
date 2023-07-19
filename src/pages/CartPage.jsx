@@ -1,8 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import useValidateLogin from './../hooks/useValidateLogin'
 import { Button, CardMedia, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import { Stack } from '@mui/system';
 import { Clear } from '@mui/icons-material';
+import { removeFromCart } from '../store/cartSlice';
 
 const priceFormatter = new Intl.NumberFormat('es-AR', {
   style: 'currency',
@@ -13,9 +14,14 @@ const priceFormatter = new Intl.NumberFormat('es-AR', {
 
 const CartPage = () => {
 
+  const dispatch = useDispatch()
   const {data: cartProducts} = useSelector(state => state.cart);
   
   useValidateLogin()
+
+  const handleRemove = (id) => {
+    dispatch(removeFromCart(id))
+  }
 
   return (
     <Stack>
@@ -46,7 +52,7 @@ const CartPage = () => {
                   <TableCell align='center'>{p.quantity}</TableCell>
                   <TableCell>{priceFormatter.format(p.totalPrice)}</TableCell>
                   <TableCell align='right'>
-                    <Button variant="text"><Clear/></Button>
+                    <Button variant="text" onClick={() => handleRemove(p.id)}><Clear/></Button>
                   </TableCell>
                 </TableRow>
               ))
