@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import productService from './../services/productService'
-import { MenuItem, Select, Stack, InputLabel, FormControl, Pagination } from "@mui/material"
+import { Stack, Pagination } from "@mui/material"
 import { ProductList, SelectOrder, SelectCategory } from "../components"
 import _ from "lodash"
 import selectProducts from "../utils/selectProducts"

@@ -1,8 +1,7 @@
-import { AppBar, Toolbar, Typography, Button, Stack} from '@mui/material'
+import { AppBar, Toolbar, Typography, Button, Stack, Badge} from '@mui/material'
 import { Link } from 'react-router-dom';
 import authService from '../services/authService'
 import { useNavigate } from 'react-router-dom'
-import { useEffect } from 'react';
 import { ShoppingCart, Person } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux'
 import { removeUser } from './../store/userSlice'
@@ -10,6 +9,7 @@ import { removeUser } from './../store/userSlice'
 const Navbar = () => {
 
   const { isConnected } = useSelector(state => state.user);
+  const { data } = useSelector(state => state.cart)
   const navigation = useNavigate();
   const dispatch = useDispatch()
 
@@ -32,7 +32,9 @@ const Navbar = () => {
           isConnected ? 
           <>
             <Button color="inherit" onClick={() => navigation("/cart")}>
-              <ShoppingCart/>
+              <Badge badgeContent={data.reduce((acum, p) => acum + p.quantity, 0)} color='secondary'>
+                <ShoppingCart/>
+              </Badge>
             </Button>
             <Button color="inherit" onClick={() => navigation("/user")}>
               <Person/>
